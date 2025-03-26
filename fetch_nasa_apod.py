@@ -7,7 +7,7 @@ from helper import get_file_extension
 
 def get_links_nasa_images(api_key):
     url = 'https://api.nasa.gov/planetary/apod'
-    params = {'api_key': api_key, 'count': 5}
+    params = {'api_key': api_key, 'count': 50}
     response = requests.get(url, params=params)
     response.raise_for_status()
     links_nasa = []
