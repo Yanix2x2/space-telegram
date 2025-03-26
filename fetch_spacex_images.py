@@ -31,7 +31,7 @@ def fetch_spacex_last_launch(links_spacex, directory):
 
 
 def main():
-    directory = 'images'
+    directory = 'images/spacex'
     
     os.makedirs(directory, exist_ok=True)
 

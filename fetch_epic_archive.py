@@ -41,7 +41,7 @@ def fetch_epic_archive(links_epic, directory, api_key):
 def main():
     load_dotenv()
     api_key = os.environ["NASA_API_KEY"]
-    directory = 'images'
+    directory = 'images/epic'
     os.makedirs(directory, exist_ok=True)
 
     links_epic = get_links_epic_images(api_key)
