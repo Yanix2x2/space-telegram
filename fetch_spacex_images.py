@@ -10,7 +10,12 @@ def get_links_spacex_images():
     parser = argparse.ArgumentParser(
         description='Загрузка фотографий с указанным id'
     )
-    parser.add_argument('--launch_id', help='ID запуска', default='latest')
+    parser.add_argument(
+        '--launch_id',
+        '-l',
+        help='ID запуска',
+        default='latest'
+    )
     args = parser.parse_args()
     url = urljoin(BASE_URL, args.launch_id)
     response = requests.get(url)
