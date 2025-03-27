@@ -2,46 +2,43 @@ import os
 import random
 import time
 import argparse
+from dotenv import load_dotenv
 
-from environs import env
 import telegram
 
+from helper import directory_walk
 
-def send_picture(bot, chat_id):
-    path = []
-    for address, dirs, files in os.walk('images'):
-        for file in files:
-            path.append(os.path.join(address, file))
 
+def send_picture(bot, chat_id, directory):
+    path = directory_walk(directory)
     random.shuffle(path)
-    bot.send_photo(
-        chat_id=chat_id,
-        photo=open(random.choice(path), 'rb')
-    )
+    with open(random.choice(path), 'rb') as photo:
+        bot.send_photo(
+            chat_id=chat_id,
+            photo=photo
+        )
 
 
 def main():
-    env.read_env()
-    tg_token = env('BOT_TOKEN')
-    chat_id = env('CHAT_ID')
+    load_dotenv()
+    tg_token = os.environ['TELEGRAM_BOT_TOKEN']
+    chat_id = os.environ['TELEGRAM_CHAT_ID']
+
     bot = telegram.Bot(token=tg_token)
 
-    parser = argparse.ArgumentParser(
-            description='Время автоматической публикации'
-        )
-    parser.add_argument(
-        '--time', 
-        '-t',
-        type=int,
-        help='Время в секундах',
-        default='4 * 3600'
-    )
+    parser = argparse.ArgumentParser(description='Telegram bot')
+    parser.add_argument('--time', '-t', type=int, help='Время в секундах', default='14400')
+    parser.add_argument('--directory', '-d', help='Директория для поиска', default='images')
     args = parser.parse_args()
-    print(args.time)
 
     while True:
-        time.sleep(args.time)
-        send_picture(bot, chat_id)
+        try:
+            send_picture(bot, chat_id, args.directory)
+            time.sleep(args.time)
+        except telegram.error.NetworkError as err:
+            print(f"Ошибка подключения: {err}, повтор через 5 секунд")
+            time.sleep(5)
+            continue
 
 
 if __name__ == '__main__':
