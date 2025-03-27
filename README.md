@@ -28,7 +28,7 @@ NASA_API_KEY='ваш_api_key'
 
 Токен необходимо будет добавить в `.env`:
 ```
-BOT_TOKEN='ваш_токен'
+TELEGRAM_BOT_TOKEN='ваш_токен'
 ```
 ## Запуск
 ### fetch_spacex_images.py
