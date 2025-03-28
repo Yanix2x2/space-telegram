@@ -11,9 +11,13 @@ def get_nasa_links(api_key, count):
     params = {'api_key': api_key, 'count': count}
     response = requests.get(url, params=params)
     response.raise_for_status()
-    nasa_links = [link.get('url') for link in response.json()]
+    nasa_links = [
+        link.get('url') 
+        for link in response.json() 
+        if link.get('media_type') == 'image'
+    ]
     return nasa_links
-
+    
 
 def fetch_nasa_apod(nasa_links, directory):
     for i, link in enumerate(nasa_links):
