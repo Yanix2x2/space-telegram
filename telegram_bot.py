@@ -38,7 +38,6 @@ def main():
         except telegram.error.NetworkError as err:
             print(f"Ошибка подключения: {err}, повтор через 5 секунд")
             time.sleep(5)
-            continue
 
 
 if __name__ == '__main__':
