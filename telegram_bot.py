@@ -10,9 +10,9 @@ from helper import directory_walk
 
 
 def send_picture(bot, chat_id, directory):
-    path = directory_walk(directory)
-    random.shuffle(path)
-    with open(random.choice(path), 'rb') as photo:
+    paths = directory_walk(directory)
+    random.shuffle(paths)
+    with open(random.choice(paths), 'rb') as photo:
         bot.send_photo(
             chat_id=chat_id,
             photo=photo
