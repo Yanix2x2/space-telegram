@@ -31,7 +31,6 @@ def main():
     args = parser.parse_args()
 
     os.makedirs(args.directory, exist_ok=True)
-
     spacex_links = get_spacex_links(args.launch_id)
     fetch_spacex_last_launch(spacex_links, args.directory)
 

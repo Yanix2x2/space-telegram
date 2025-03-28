@@ -6,11 +6,11 @@ from dotenv import load_dotenv
 
 import telegram
 
-from helper import directory_walk
+from helper import walk_directory
 
 
 def send_picture(bot, chat_id, directory):
-    paths = directory_walk(directory)
+    paths = walk_directory(directory)
     random.shuffle(paths)
     with open(random.choice(paths), 'rb') as photo:
         bot.send_photo(

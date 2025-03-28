@@ -21,9 +21,9 @@ def save_pictures(link, directory, image_name, params=None):
         image.write(response.content)
 
 
-def directory_walk(directory):
-    path = []
+def walk_directory(directory):
+    paths = []
     for address, dirs, files in os.walk(directory):
         for file in files:
-            path.append(os.path.join(address, file))
-    return path
+            paths.append(os.path.join(address, file))
+    return paths
